@@ -11,7 +11,6 @@ This GitHub Copilot Extension sample shows:
 - How to contribute a test generator chat participant to the GitHub Copilot Chat view. (`@atrtestgenerator`, [simple.ts](src/simple.ts))
 - How to use specialized commands for different types of test generation (/api, /web)
 - How to use the Language Model API to request access to the Language Model
-- How to use the `@vscode/chat-extension-utils` library to easily create a chat participant that uses tools. (`@catTools`, [chatUtilsSample.ts](src/chatUtilsSample.ts))
 - How to contribute a more sophisticated chat participant that uses the LanguageModelTool API to contribute and invoke tools. (`@tool`, [toolParticipant.ts](src/toolParticipant.ts))
 
 ![demo](./demo.png)

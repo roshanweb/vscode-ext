@@ -1,8 +1,8 @@
 {
-	"name": "chat-sample",
+	"name": "automation-test-generator",
 	"publisher": "vscode-samples",
-	"displayName": "Copilot Chat Sample",
-	"description": "Sample chat extension that generates automated tests using Playwright and TypeScript.",
+	"displayName": "Playwright Automation Test Generator",
+	"description": "AI-powered extension that generates robust Playwright-based automation tests and sets up complete test automation projects for API and Web UI testing.",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Microsoft/vscode-extension-samples"
@@ -13,75 +13,37 @@
 	},
 	"categories": [
 		"AI",
-		"Chat",
-		"Testing"
+		 "Testing",
+		"Snippets"
 	],
 	"activationEvents": [],
 	"contributes": {
 		"chatParticipants": [
 			{
-				"id": "chat-sample.cat",
-				"fullName": "Cat",
-				"name": "cat",
-				"description": "Meow! What can I teach you?",
-				"isSticky": true,
-				"commands": [
-					{
-						"name": "randomTeach",
-						"description": "Pick at random a computer science concept then explain it in purfect way of a cat"
-					},
-					{
-						"name": "play",
-						"description": "Do whatever you want, you are a cat after all",
-						"disambiguation": [
-							{
-								"category": "cat_play",
-								"description": "The user just wants to relax and see the cat play.",
-								"examples": [
-									"Enough learning, let the cat play with a ball of yarn",
-									"Can you show me a cat playing with a laser pointer?"
-								]
-							}
-						]
-					}
-				],
-				"disambiguation": [
-					{
-						"category": "cat",
-						"description": "The user wants to learn a specific computer science topic in an informal way.",
-						"examples": [
-							"Teach me C++ pointers using metaphors",
-							"Explain to me what is a linked list in a simple way",
-							"Can you explain to me what is a function in programming?"
-						]
-					}
-				]
-			},
-			{
 				"id": "chat-sample.testGenerator",
-				"fullName": "Test Generator",
+				"fullName": "Automation Test Generator",
 				"name": "atrtestgenerator",
-				"description": "I can generate API and Web UI tests using Playwright and TypeScript",
+				"description": "Generate production-ready automated tests and set up complete test automation projects using Playwright and TypeScript",
 				"isSticky": true,
 				"commands": [
 					{
 						"name": "api",
-						"description": "Generate API tests with Playwright and TypeScript based on your requirements"
+						"description": "Generate comprehensive API tests with Playwright and TypeScript including authentication, validation and error handling"
 					},
 					{
 						"name": "web",
-						"description": "Generate Web UI tests with Playwright and TypeScript based on your requirements"
+						"description": "Generate robust Web UI tests with Playwright and TypeScript using Page Object Model patterns and best practices"
 					},
 					{
 						"name": "play",
-						"description": "Generate a sample test to demonstrate Playwright capabilities",
+						"description": "Generate a sample test to demonstrate Playwright capabilities and testing patterns",
 						"disambiguation": [
 							{
 								"category": "test_sample",
-								"description": "The user wants to see a sample test to learn about Playwright testing.",
+								"description": "Generate a sample test to learn about Playwright testing patterns.",
 								"examples": [
-									"Show me a basic test example",
-									"Can you give me a sample of a Playwright test?"
+									"Show me a sample API test pattern",
+									"Can you provide an example of Page Object Model implementation?"
 								]
 							}
 						]
@@ -90,42 +52,29 @@
 				"disambiguation": [
 					{
 						"category": "test_generation",
-						"description": "The user wants to generate automated tests using Playwright for their application.",
+						"description": "Generate automated tests using Playwright for any application.",
 						"examples": [
-							"Create tests for my login API",
-							"Write a test for user registration form",
-							"Can you help me test my checkout process?"
+							"Generate an API test for user authentication flow",
+							"Create UI tests for an e-commerce checkout process",
+							"Generate tests for a REST API with JWT authentication"
 						]
 					}
 				]
 			},
 			{
 				"id": "chat-tools-sample.tools",
-				"fullName": "Tool User",
+				"fullName": "Testing Tools",
 				"name": "tools",
-				"description": "I use tools",
+				"description": "Utility tools for enhancing test automation workflows",
 				"isSticky": true,
 				"commands": [
 					{
 						"name": "list",
-						"description": "List all available tools"
+						"description": "List available testing tools and utilities"
 					},
 					{
 						"name": "all",
-						"description": "Use all registered tools. By default, only this extension's tools are used."
-					}
-				]
-			},
-			{
-				"id": "chat-tools-sample.catTools",
-				"fullName": "Cat (Tools)",
-				"name": "catTools",
-				"description": "I use tools, implemented using @vscode/chat-extension-utils, and am also a cat",
-				"isSticky": true,
-				"commands": [
-					{
-						"name": "all",
-						"description": "Use all registered tools. By default, only this extension's tools are used."
+						"description": "Use all registered testing tools. By default, only this extension's tools are used."
 					}
 				]
 			}
@@ -137,7 +86,6 @@
 					"editors",
 					"chat-tools-sample"
 				],
-				"toolReferenceName": "tabCount",
 				"displayName": "Tab Count",
 				"modelDescription": "The number of active tabs in a tab group",
 				"icon": "$(files)",
@@ -198,12 +146,8 @@
 		],
 		"commands": [
 			{
-				"command": "cat.namesInEditor",
-				"title": "Use Cat Names in Editor"
-			},
-			{
 				"command": "test.namesInEditor",
-				"title": "Insert Test Code to Editor"
+				"title": "Insert Generated Test Code to Editor"
 			}
 		]
 	},
