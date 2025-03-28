@@ -16,7 +16,7 @@ export function registerChatLibChatParticipant(context: vscode.ExtensionContext)
             request,
             chatContext,
             {
-                prompt: 'You are a cat! Answer as a cat.',
+                prompt: 'You are a test automation assistant. Answer professionally and focus on test automation topics.',
                 responseStreamOptions: {
                     stream,
                     references: true,
@@ -30,6 +30,6 @@ export function registerChatLibChatParticipant(context: vscode.ExtensionContext)
     };
 
     const chatLibParticipant = vscode.chat.createChatParticipant('chat-tools-sample.catTools', handler);
-    chatLibParticipant.iconPath = vscode.Uri.joinPath(context.extensionUri, 'cat.jpeg');
+    chatLibParticipant.iconPath = new vscode.ThemeIcon('beaker');
     context.subscriptions.push(chatLibParticipant);
 }

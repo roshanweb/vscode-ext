@@ -1,82 +1,100 @@
 import {
-	BasePromptElementProps,
-	PromptElement,
-	PromptSizing,
-	UserMessage
+    BasePromptElementProps,
+    PromptElement,
+    PromptSizing,
+    UserMessage
 } from '@vscode/prompt-tsx';
 
 export interface PromptProps extends BasePromptElementProps {
-	userQuery: string;
+    userQuery: string;
+    targetPath?: string;
 }
 
 export class ApiTestPrompt extends PromptElement<PromptProps, void> {
-	render(_state: void, _sizing: PromptSizing) {
-		return (
-			<>
-				<UserMessage>
-					You are an API test generator specialized in creating Playwright tests with TypeScript.
-					Your task is to create comprehensive, well-structured API test scripts based on the user requirements.
+    render(_state: void, _sizing: PromptSizing) {
+        const targetContext = this.props.targetPath ?
+            `\nTarget file: ${this.props.targetPath}\nEnsure the test integrates well with existing tests in the file.` : '';
 
-					Follow these guidelines:
-					1. Use Playwright's API testing capabilities
-					2. Structure tests with describe/it blocks
-					3. Include proper assertions
-					4. Handle authentication if required
-					5. Follow best practices for API testing
-					6. Include error handling
-					7. Add detailed comments
-					8. Make tests maintainable and readable
+        const codeTemplate = `
+// Required imports
+import { test, expect } from '@playwright/test';
+// Any additional imports
 
-					The test should include:
-					- Proper setup and teardown
-					- Request configuration
-					- Response validation
-					- Status code checks
-					- Data validation
-					- Edge case testing when appropriate
+// Test fixtures and setup (if needed)
 
-					Respond with a complete, executable Playwright API test script in TypeScript.
-					Include installation instructions if necessary.
+test.describe('Feature: [derived from user query]', () => {
+    // Your test implementation here
+});`;
 
-					User request: {this.props.userQuery}
-				</UserMessage>
-			</>
-		);
-	}
+        return (
+            <>
+                <UserMessage>
+                    Generate a complete Playwright API test case for the following requirement:
+                    {this.props.userQuery}
+                    {targetContext}
+
+                    Write ONLY the test code following these rules:
+                    1. Use TypeScript and Playwright's test framework
+                    2. Include all necessary imports
+                    3. Include proper setup and teardown
+                    4. Add comprehensive assertions
+                    5. Include error handling
+                    6. Add detailed comments explaining the test flow
+
+                    Structure the test following this pattern:
+                    {`\`\`\`typescript\n${codeTemplate}\n\`\`\``}
+
+                    IMPORTANT: Output ONLY the executable test code, no explanations outside the code comments.
+                </UserMessage>
+            </>
+        );
+    }
 }
 
 export class WebTestPrompt extends PromptElement<PromptProps, void> {
-	render(_state: void, _sizing: PromptSizing) {
-		return (
-			<>
-				<UserMessage>
-					You are a UI test generator specialized in creating Playwright tests with TypeScript.
-					Your task is to create comprehensive, well-structured web UI test scripts based on the user requirements.
+    render(_state: void, _sizing: PromptSizing) {
+        const targetContext = this.props.targetPath ?
+            `\nTarget file: ${this.props.targetPath}\nEnsure the test integrates well with existing tests in the file.` : '';
 
-					Follow these guidelines:
-					1. Use Playwright's Page Object Model pattern
-					2. Structure tests with describe/it blocks
-					3. Include proper assertions
-					4. Handle waiting and timing properly
-					5. Follow best practices for UI testing
-					6. Include error handling
-					7. Add detailed comments
-					8. Make tests maintainable and readable
+        const codeTemplate = `
+// Required imports
+import { test, expect } from '@playwright/test';
+// Any additional imports
 
-					The test should include:
-					- Proper setup and teardown
-					- Page object classes when appropriate
-					- Element selectors (prefer data-testid)
-					- User interactions (click, type, etc.)
-					- Visual validation when needed
-					- Screenshot capture on failure
+// Page Object class (if needed)
+class PageName {
+    // Page object implementation
+}
 
-					Respond with a complete, executable Playwright UI test script in TypeScript.
-					Include installation instructions if necessary.
+// Test fixtures and setup (if needed)
 
-					User request: {this.props.userQuery}
-				</UserMessage>
-			</>
-		);
-	}
+test.describe('Feature: [derived from user query]', () => {
+    // Your test implementation here
+});`;
+
+        return (
+            <>
+                <UserMessage>
+                    Generate a complete Playwright Web UI test case for the following requirement:
+                    {this.props.userQuery}
+                    {targetContext}
+
+                    Write ONLY the test code following these rules:
+                    1. Use TypeScript and Playwright's test framework
+                    2. Use Page Object Model pattern
+                    3. Include all necessary imports
+                    4. Include proper setup and teardown
+                    5. Use data-testid for selectors when possible
+                    6. Add comprehensive assertions
+                    7. Include error handling
+                    8. Add detailed comments explaining the test flow
+
+                    Structure the test following this pattern:
+                    {`\`\`\`typescript\n${codeTemplate}\n\`\`\``}
+
+                    IMPORTANT: Output ONLY the executable test code, no explanations outside the code comments.
+                </UserMessage>
+            </>
+        );
+    }
 }
