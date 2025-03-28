@@ -1,0 +1,230 @@
+{
+	"name": "chat-sample",
+	"publisher": "vscode-samples",
+	"displayName": "Copilot Chat Sample",
+	"description": "Sample chat extension that generates automated tests using Playwright and TypeScript.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-extension-samples"
+	},
+	"version": "0.1.0",
+	"engines": {
+		"vscode": "^1.95.0"
+	},
+	"categories": [
+		"AI",
+		"Chat",
+		"Testing"
+	],
+	"activationEvents": [],
+	"contributes": {
+		"chatParticipants": [
+			{
+				"id": "chat-sample.cat",
+				"fullName": "Cat",
+				"name": "cat",
+				"description": "Meow! What can I teach you?",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "randomTeach",
+						"description": "Pick at random a computer science concept then explain it in purfect way of a cat"
+					},
+					{
+						"name": "play",
+						"description": "Do whatever you want, you are a cat after all",
+						"disambiguation": [
+							{
+								"category": "cat_play",
+								"description": "The user just wants to relax and see the cat play.",
+								"examples": [
+									"Enough learning, let the cat play with a ball of yarn",
+									"Can you show me a cat playing with a laser pointer?"
+								]
+							}
+						]
+					}
+				],
+				"disambiguation": [
+					{
+						"category": "cat",
+						"description": "The user wants to learn a specific computer science topic in an informal way.",
+						"examples": [
+							"Teach me C++ pointers using metaphors",
+							"Explain to me what is a linked list in a simple way",
+							"Can you explain to me what is a function in programming?"
+						]
+					}
+				]
+			},
+			{
+				"id": "chat-sample.testGenerator",
+				"fullName": "Test Generator",
+				"name": "atrtestgenerator",
+				"description": "I can generate API and Web UI tests using Playwright and TypeScript",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "api",
+						"description": "Generate API tests with Playwright and TypeScript based on your requirements"
+					},
+					{
+						"name": "web",
+						"description": "Generate Web UI tests with Playwright and TypeScript based on your requirements"
+					},
+					{
+						"name": "play",
+						"description": "Generate a sample test to demonstrate Playwright capabilities",
+						"disambiguation": [
+							{
+								"category": "test_sample",
+								"description": "The user wants to see a sample test to learn about Playwright testing.",
+								"examples": [
+									"Show me a basic test example",
+									"Can you give me a sample of a Playwright test?"
+								]
+							}
+						]
+					}
+				],
+				"disambiguation": [
+					{
+						"category": "test_generation",
+						"description": "The user wants to generate automated tests using Playwright for their application.",
+						"examples": [
+							"Create tests for my login API",
+							"Write a test for user registration form",
+							"Can you help me test my checkout process?"
+						]
+					}
+				]
+			},
+			{
+				"id": "chat-tools-sample.tools",
+				"fullName": "Tool User",
+				"name": "tools",
+				"description": "I use tools",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "list",
+						"description": "List all available tools"
+					},
+					{
+						"name": "all",
+						"description": "Use all registered tools. By default, only this extension's tools are used."
+					}
+				]
+			},
+			{
+				"id": "chat-tools-sample.catTools",
+				"fullName": "Cat (Tools)",
+				"name": "catTools",
+				"description": "I use tools, implemented using @vscode/chat-extension-utils, and am also a cat",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "all",
+						"description": "Use all registered tools. By default, only this extension's tools are used."
+					}
+				]
+			}
+		],
+		"languageModelTools": [
+			{
+				"name": "chat-tools-sample_tabCount",
+				"tags": [
+					"editors",
+					"chat-tools-sample"
+				],
+				"toolReferenceName": "tabCount",
+				"displayName": "Tab Count",
+				"modelDescription": "The number of active tabs in a tab group",
+				"icon": "$(files)",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"tabGroup": {
+							"type": "number",
+							"description": "The index of the tab group to check. This is optional- if not specified, the active tab group will be checked.",
+							"default": 0
+						}
+					}
+				}
+			},
+			{
+				"name": "chat-tools-sample_findFiles",
+				"tags": [
+					"files",
+					"search",
+					"chat-tools-sample"
+				],
+				"displayName": "Find Files",
+				"modelDescription": "Search for files in the current workspace",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"pattern": {
+							"type": "string",
+							"description": "Search for files that match this glob pattern"
+						}
+					},
+					"required": [
+						"pattern"
+					]
+				}
+			},
+			{
+				"name": "chat-tools-sample_runInTerminal",
+				"tags": [
+					"terminal",
+					"chat-tools-sample"
+				],
+				"displayName": "Run in Terminal",
+				"modelDescription": "Run a command in a terminal and return the output",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"command": {
+							"type": "string",
+							"description": "The command to run"
+						}
+					},
+					"required": [
+						"command"
+					]
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "cat.namesInEditor",
+				"title": "Use Cat Names in Editor"
+			},
+			{
+				"command": "test.namesInEditor",
+				"title": "Insert Test Code to Editor"
+			}
+		]
+	},
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint",
+		"watch": "tsc -watch -p ./"
+	},
+	"dependencies": {
+		"@vscode/chat-extension-utils": "^0.0.0-alpha.1",
+		"@vscode/prompt-tsx": "^0.3.0-alpha.12"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@stylistic/eslint-plugin": "^2.9.0",
+		"@types/node": "^20",
+		"@types/vscode": "^1.95.0",
+		"eslint": "^9.13.0",
+		"typescript": "^5.8.2",
+		"typescript-eslint": "^8.26.0"
+	}
+}
